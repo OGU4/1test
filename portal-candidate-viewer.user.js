@@ -7,13 +7,9 @@
 // @downloadURL
 // @description    Show portal candidate on the map.
 // @include        https://intel.ingress.com/intel*
-// @include        http://intel.ingress.com/intel*
 // @match          https://intel.ingress.com/intel*
-// @match          http://intel.ingress.com/intel*
 // @include        https://intel.ingress.com/mission/*
-// @include        http://intel.ingress.com/mission/*
 // @match          https://intel.ingress.com/mission/*
-// @match          http://intel.ingress.com/mission/*
 // @require        
 // @grant          GM_xmlhttpRequest
 // ==/UserScript==
