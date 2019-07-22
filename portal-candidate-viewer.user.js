@@ -43,10 +43,8 @@ window.plugin.portalCandidate.setupCSS = function() {
    '.portal-candidate-icon{' +
      'color:#FFFFBB;' +
      'font-size:11px;line-height:12px;' +
-     'text-align:center;padding: 2px;' + // padding needed so shadow doesn't clip
+     'text-align:center;padding: 2px;' + 
      'overflow:hidden;' +
-// could try this if one-line names are used
-//    +'white-space: nowrap;text-overflow:ellipsis;'
      'text-shadow:1px 1px #000,1px -1px #000,-1px 1px #000,-1px -1px #000, 0 0 5px #000;' +
      'pointer-events:none;' +
    '}'
