@@ -3,7 +3,7 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer
 // @author         nmmr
 // @category       Layer
-// @version        0.0.23
+// @version        0.0.25
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
@@ -17,7 +17,7 @@
 // @match          https://intel.ingress.com/mission/*
 // @match          http://intel.ingress.com/mission/*
 // @require        none
-// @grant          GM_xmlhttpRequest
+// @grant          none
 // ==/UserScript==
 
 function wrapper(plugin_info) {
@@ -94,28 +94,3 @@ function wrapper(plugin_info) {
   if(window.iitcLoaded && typeof setup === 'function') setup();
 } // wrapper end
 
-// 申請候補地の取得
-GM_xmlhttpRequest({
-  method:     'GET',
-  url:        'https://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
-  headers: {
-    "User-Agent": "Mozilla/5.0",    // If not specified, navigator.userAgent will be used.
-    "Accept": "text/xml"            // If not specified, browser defaults will be used.
-  },
-  onload:     function (responseDetails) {
-    var candidate = {};
-    var dom = new DOMParser().parseFromString(responseDetails.responseText, 'text/xml');
-    var place = dom.getElementsByTagName('Placemark');
-    for (let key in place) {
-      if (typeof place[key].getElementsByTagName == "function") {
-        candidate[place[key].getElementsByTagName('coordinates')[0].innerHTML] = place[key].getElementsByTagName('name')[0].innerHTML;
-      }
-    }
-  // inject code into site context
-  var script = document.createElement('script');
-  var info = {};
-  if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description ,candidate:candidate};
-  script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
-  (document.body || document.head || document.documentElement).appendChild(script);
-  }
-});
