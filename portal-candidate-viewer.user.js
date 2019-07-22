@@ -2,7 +2,7 @@
 // @id             iitc-plugin-portal-candidate-viewer
 // @name           IITC-ja plugin: Portal Candidate Viewer
 // @category       Layer
-// @version        0.0.2
+// @version        0.0.3
 // @namespace      https://sites.google.com/site/stocksite123456/
 // @downloadURL
 // @description    Show portal candidate on the map.
