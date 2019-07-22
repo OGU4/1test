@@ -25,7 +25,7 @@ if(typeof window.plugin !== 'function') window.plugin = function() {};
 //PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
 //(leaving them in place might break the 'About IITC' page or break update checks)
 plugin_info.buildName = 'portal-candidate-viewer';
-plugin_info.dateTimeVersion = '20190722';
+plugin_info.dateTimeVersion = '20190723';
 plugin_info.pluginId = 'portal-candidate-viewer';
 //END PLUGIN AUTHORS NOTE
 
