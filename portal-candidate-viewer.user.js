@@ -2,7 +2,7 @@
 // @id             iitc-plugin-portal-candidate-viewer
 // @name           IITC-ja plugin: Portal Candidate Viewer
 // @category       Layer
-// @version        0.0.3
+// @version        0.0.4
 // @namespace      https://sites.google.com/site/stocksite123456/
 // @downloadURL
 // @description    Show portal candidate on the map.
@@ -21,7 +21,7 @@ if(typeof window.plugin !== 'function') window.plugin = function() {};
 //PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
 //(leaving them in place might break the 'About IITC' page or break update checks)
 plugin_info.buildName = 'portal-candidate-viewer';
-plugin_info.dateTimeVersion = '20180115';
+plugin_info.dateTimeVersion = '20190722';
 plugin_info.pluginId = 'portal-candidate-viewer';
 //END PLUGIN AUTHORS NOTE
 
@@ -97,7 +97,7 @@ if(window.iitcLoaded && typeof setup === 'function') setup();
 // 申請候補地の取得
 GM_xmlhttpRequest({
     method:     'GET',
-    url:        'http://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
+    url:        'https://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
     headers: {
         "User-Agent": "Mozilla/5.0",    // If not specified, navigator.userAgent will be used.
         "Accept": "text/xml"            // If not specified, browser defaults will be used.
