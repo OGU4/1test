@@ -3,7 +3,7 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer
 // @author         nmmr
 // @category       Layer
-// @version        0.0.20
+// @version        0.0.21
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
@@ -98,7 +98,7 @@ window.bootPlugins.push(setup);
 if(window.iitcLoaded && typeof setup === 'function') setup();
 } // wrapper end
 
-// 申請候補地の取得
+//
 GM_xmlhttpRequest({
     method:     'GET',
     url:        'https://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
