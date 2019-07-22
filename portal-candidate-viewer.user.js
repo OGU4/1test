@@ -3,7 +3,7 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer
 // @author         nmmr
 // @category       Layer
-// @version        0.0.14
+// @version        0.0.15
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
@@ -20,9 +20,6 @@
 // @grant          GM_xmlhttpRequest
 // ==/UserScript==
 
-//PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
-//(leaving them in place might break the 'About IITC' page or break update checks)
-plugin_info.buildName = 'portal-candidate-viewer';
-plugin_info.dateTimeVersion = '20190722';
-plugin_info.pluginId = 'portal-candidate-viewer';
-//END PLUGIN AUTHORS NOTE
+function wrapper(plugin_info) {
+// ensure plugin framework is there, even if iitc is not yet loaded
+if(typeof window.plugin !== 'function') window.plugin = function() {};
