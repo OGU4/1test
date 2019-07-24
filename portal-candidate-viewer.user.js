@@ -1,9 +1,9 @@
 // ==UserScript==
-// @id             iitc-plugin-portal-candidate-viewer
-// @name           IITC-ja plugin: Portal Candidate Viewer
+// @id             iitc-plugin-portal-candidate-viewer2
+// @name           IITC-ja plugin: Portal Candidate Viewer2
 // @author         nmmr
 // @category       Layer
-// @version        0.0.25
+// @version        0.0.26
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
@@ -17,7 +17,7 @@
 // @match          https://intel.ingress.com/mission/*
 // @match          http://intel.ingress.com/mission/*
 // @require        none
-// @grant          none
+// @grant          GM_xmlhttpRequest
 // ==/UserScript==
 
 function wrapper(plugin_info) {
@@ -26,9 +26,9 @@ function wrapper(plugin_info) {
 
   //PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
   //(leaving them in place might break the 'About IITC' page or break update checks)
-  plugin_info.buildName = 'portal-candidate-viewer';
-  plugin_info.dateTimeVersion = '20190723';
-  plugin_info.pluginId = 'portal-candidate-viewer';
+  plugin_info.buildName = 'portal-candidate-viewer2';
+  plugin_info.dateTimeVersion = '20190724';
+  plugin_info.pluginId = 'portal-candidate-viewer2';
   //END PLUGIN AUTHORS NOTE
 
 
@@ -66,8 +66,7 @@ function wrapper(plugin_info) {
               className: 'portal-candidate-icon',
               iconSize: [50,50],
               html: window.plugin.portalCandidate.candidate[key]
-            })
-          });
+            })          });
         label.addTo(window.plugin.portalCandidate.portalLayer);
         }
       }
@@ -77,7 +76,7 @@ function wrapper(plugin_info) {
   var setup = function() {
     window.plugin.portalCandidate.setupCSS();
     window.plugin.portalCandidate.portalLayer = L.layerGroup();
-    addLayerGroup('PortalCandidate', window.plugin.portalCandidate.portalLayer, true);
+    addLayerGroup('PortalCandidate2', window.plugin.portalCandidate.portalLayer, true);
     window.addHook('mapDataRefreshEnd', function() { window.plugin.portalCandidate.updatePortalLocations(); });
   };
 
@@ -87,10 +86,36 @@ function wrapper(plugin_info) {
   // PLUGIN END //////////////////////////////////////////////////////////
 
 
-  setup.info = plugin_info; //add the script info data to the function as a property
+  setup.info = plugin_info;
   if(!window.bootPlugins) window.bootPlugins = [];
   window.bootPlugins.push(setup);
   // if IITC has already booted, immediately run the 'setup' function
   if(window.iitcLoaded && typeof setup === 'function') setup();
-} // wrapper end
+};
+// wrapper end
 
+//
+GM_xmlhttpRequest({
+  method:     'GET',
+  url:        'http://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
+  headers: {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "text/xml"
+  },
+  onload:     function (responseDetails) {
+    var candidate = {};
+    var dom = new DOMParser().parseFromString(responseDetails.responseText, 'text/xml');
+    var place = dom.getElementsByTagName('Placemark');
+    for (let key in place) {
+      if (typeof place[key].getElementsByTagName == "function") {
+        candidate[place[key].getElementsByTagName('coordinates')[0].innerHTML] = place[key].getElementsByTagName('name')[0].innerHTML;
+      }
+    }
+    // inject code into site context
+    var script = document.createElement('script');
+    var info = {};
+    if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description ,candidate:candidate};
+    script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
+    (document.body || document.head || document.documentElement).appendChild(script);
+  }
+});
