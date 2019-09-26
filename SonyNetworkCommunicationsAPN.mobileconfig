@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>ConsentText</key>
+		<dict>
+			<key>default</key>
+			<string>iOS7以降の端末にてソニーネットワークコミュニケーションズのモバイル通信サービスを利用するためのAPN構成プロファイルです。</string>
+		</dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				<key>AttachAPN</key>
+				<dict>
+					<key>Name</key>
+					<string>so-net.jp</string>
+					<key>AuthenticationType</key>
+					<string>CHAP</string>
+					<key>Username</key>
+					<string>nuro</string>
+					<key>Password</key>
+					<string>nuro</string>
+				</dict>
+				<key>APNs</key>
+				<array>
+					<dict>
+						<key>Name</key>
+						<string>so-net.jp</string>
+						<key>AuthenticationType</key>
+						<string>CHAP</string>
+						<key>Username</key>
+						<string>nuro</string>
+						<key>Password</key>
+						<string>nuro</string>
+					</dict>
+				</array>
+				<key>PayloadDescription</key>
+				<string>ソニーネットワークコミュニケーションズのモバイル通信サービスを利用するためのAPN構成プロファイルです。（iOS7以降対応）</string>
+				<key>PayloadDisplayName</key>
+				<string>Sony Network Communications APN</string>
+				<key>PayloadIdentifier</key>
+				<string>jp.so-net.profile</string>
+				<key>PayloadOrganization</key>
+				<string>Sony Network Communications Inc.</string>
+				<key>PayloadType</key>
+				<string>com.apple.cellular</string>
+				<key>PayloadUUID</key>
+				<string>888A581E-22D9-4ADC-B48D-3E7A965FE0AC</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>ソニーネットワークコミュニケーションズのモバイル通信サービス用APN構成プロファイル（iOS7以降対応）</string>
+		<key>PayloadDisplayName</key>
+		<string>Sony Network Communications APN</string>
+		<key>PayloadIdentifier</key>
+		<string>jp.so-net.profile</string>
+		<key>PayloadOrganization</key>
+		<string>Sony Network Communications Inc.</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>88DB3F09-962D-4A3D-AAAB-05AE1CC747BF</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>
