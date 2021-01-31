@@ -3,10 +3,10 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer2
 // @author         nmmr
 // @category       Layer
-// @version        0.0.41
+// @version        0.0.52
 // @namespace      https://github.com/OGU4/1test
-// @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
-// @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user.js
+// @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
+// @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
 // @description    Show portal candidate on the map.
 // @include        https://intel.ingress.com/intel*
 // @include        http://intel.ingress.com/intel*
@@ -16,7 +16,7 @@
 // @include        http://intel.ingress.com/mission/*
 // @match          https://intel.ingress.com/mission/*
 // @match          http://intel.ingress.com/mission/*
-// @require        
+// @require        none
 // @grant          GM_xmlhttpRequest
 // ==/UserScript==
 
@@ -27,7 +27,7 @@ function wrapper(plugin_info) {
   //PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
   //(leaving them in place might break the 'About IITC' page or break update checks)
   plugin_info.buildName = 'portal-candidate-viewer2';
-  plugin_info.dateTimeVersion = '20190810';
+  plugin_info.dateTimeVersion = '20210201';
   plugin_info.pluginId = 'portal-candidate-viewer2';
   //END PLUGIN AUTHORS NOTE
 
@@ -53,10 +53,16 @@ function wrapper(plugin_info) {
     window.plugin.portalCandidate.portalLayer.clearLayers();
 
     var bounds = map.getBounds();
-    var candidateOptions = {color: 'red', weight: 7, opacity: 0.5, clickable: false , fill:true};
+    var candidateOptions = {color: 'red', weight: 7, opacity: 0.5, clickable: true , fill:true};
     for (let key in window.plugin.portalCandidate.candidate) {
       var latlng = new L.LatLng(key.split(',')[1], key.split(',')[0]);
       if (bounds.contains(latlng)) {
+        let property = {color: 'orange', weight: 3, opacity: 1, clickable: true, fill:true, fillOpacity:0.1};
+        let circle = L.circle(latlng, 20, property);
+        window.plugin.portalCandidate.portalLayer.addLayer(circle);
+        let circle2 = L.circle(latlng, 1, property);
+        window.plugin.portalCandidate.portalLayer.addLayer(circle2);
+
         var c = L.circle (latlng, 5, candidateOptions);
         window.plugin.portalCandidate.portalLayer.addLayer(c);
         if (map.getZoom() > 15) {
@@ -66,7 +72,8 @@ function wrapper(plugin_info) {
               className: 'portal-candidate-icon',
               iconSize: [50,50],
               html: window.plugin.portalCandidate.candidate[key]
-            })          });
+            })
+          });
         label.addTo(window.plugin.portalCandidate.portalLayer);
         }
       }
@@ -94,27 +101,31 @@ function wrapper(plugin_info) {
 };
 // wrapper end
 
+//
 GM_xmlhttpRequest({
-    method:     'GET',
-    url:        'http://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
-    headers: {
-        "User-Agent": "Mozilla/5.0",    // If not specified, navigator.userAgent will be used.
-        "Accept": "text/xml"            // If not specified, browser defaults will be used.
-    },
-    onload:     function (responseDetails) {
-        var candidate = {}
-        var dom = new DOMParser().parseFromString(responseDetails.responseText, 'text/xml');
-        var place = dom.getElementsByTagName('Placemark');
-        for (let key in place) {
-            if (typeof place[key].getElementsByTagName == "function") {
-              candidate[place[key].getElementsByTagName('coordinates')[0].innerHTML] = place[key].getElementsByTagName('name')[0].innerHTML;
-            }
+  method:     'GET',
+  url:        'https://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1THKbg1aUGMW4jiuVRE9MKLlx1sMAXmUj&ll',
+  headers: {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "text/xml"
+  },
+  onload:     function (responseDetails) {
+    var candidate = {};
+    var dom = new DOMParser().parseFromString(responseDetails.responseText, 'text/xml');
+    var place = dom.getElementsByTagName('Placemark');
+    for (let key in place) {
+      if (typeof place[key].getElementsByTagName == "function") {
+        let comm_out = /^#/g;
+        if (place[key].getElementsByTagName('name')[0].innerHTML.search(comm_out)) {
+          candidate[place[key].getElementsByTagName('coordinates')[0].innerHTML] = place[key].getElementsByTagName('name')[0].innerHTML;
         }
-// inject code into site context
-var script = document.createElement('script');
-var info = {};
-if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description ,candidate:candidate};
-script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
-(document.body || document.head || document.documentElement).appendChild(script);
+      }
     }
-} );
+    // inject code into site context
+    var script = document.createElement('script');
+    var info = {};
+    if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description ,candidate:candidate};
+    script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
+    (document.body || document.head || document.documentElement).appendChild(script);
+  }
+});
