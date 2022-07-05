@@ -3,7 +3,7 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer2
 // @author         nmmr
 // @category       Layer
-// @version        0.0.52
+// @version        0.0.53
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
@@ -57,7 +57,7 @@ function wrapper(plugin_info) {
     for (let key in window.plugin.portalCandidate.candidate) {
       var latlng = new L.LatLng(key.split(',')[1], key.split(',')[0]);
       if (bounds.contains(latlng)) {
-        let property = {color: 'orange', weight: 3, opacity: 1, clickable: true, fill:true, fillOpacity:0.1};
+        let property = {color: 'lime', weight: 3, opacity: 1, clickable: true, fill:true, fillOpacity:0.1};
         let circle = L.circle(latlng, 20, property);
         window.plugin.portalCandidate.portalLayer.addLayer(circle);
         let circle2 = L.circle(latlng, 1, property);
