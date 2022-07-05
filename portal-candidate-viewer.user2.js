@@ -3,7 +3,7 @@
 // @name           IITC-ja plugin: Portal Candidate Viewer2
 // @author         nmmr
 // @category       Layer
-// @version        0.0.54
+// @version        0.0.55
 // @namespace      https://github.com/OGU4/1test
 // @updateURL      https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
 // @downloadURL    https://raw.githubusercontent.com/OGU4/1test/master/portal-candidate-viewer.user2.js
